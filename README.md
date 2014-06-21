@@ -7,15 +7,19 @@ More often than not, one has to perform the same transformations on the training
 
 This module aims to make that whole process easier. By creating a DFMapper object, one can use the Transformer API to map both the training dataframe and the test dataframe, which makes the code much easier to understand and much more maintainable. 
 
-Here are some example uses.
+Here is an example use using the intro Titanic Dataset from Kaggle.
 
 ```python
+import pandas as pd
+from DFMapper import *
+from sklearn.preprocessing import LabelBinarizer
+
 df_train = pd.read_table('train.csv', sep=',')
 df_test = pd.read_table('test.csv', sep=',')
 
 mapper = DFMapper()
-mapper.add_x('Pclass', LabelBinarizer())
-mapper.add_x('Sex', [lambda x: x == 'male', LabelBinarizer()])
+mapper.add_X('Pclass', LabelBinarizer())
+mapper.add_X('Sex', [lambda x: x == 'male', LabelBinarizer()])
 mapper.add_Y('Survived')
 
 X_train, Y_train = mapper.fit_transform(df_train)
