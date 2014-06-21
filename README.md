@@ -25,3 +25,14 @@ mapper.add_Y('Survived')
 X_train, Y_train = mapper.fit_transform(df_train)
 X_test, _ = mapper.transform(df_test)
 ```
+
+We see from the above example that we can register both x variables and y variables from a given dataframe. Moreover, we can apply the transformation stored in the mapping layer to the test set (ignoring, of course, the result. If we had the answers at hand these challenges would be a lot easier).
+
+Also see, that we can specify a simple list instead of a Pipeline object, and interject our own functions into the list. The line
+
+```python
+mapper.add_X('Sex', [lambda x: x == 'male', LabelBinarizer()])
+```
+
+first passes that column of our dataframe through our lambda function, mapping it into a column of True/Falses, and then we split that through sklearn`s LabelBinarizer, to get 0 and 1's.
+
